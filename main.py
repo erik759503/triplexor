@@ -12,9 +12,9 @@ ev3 = EV3Brick()
 motor_esq = Motor(Port.A)
 motor_dir = Motor(Port.B)
 
-# Sensores: Cor na S2, Infravermelho na S1
-sensor_cor = ColorSensor(Port.S2)
-sensor_ir = InfraredSensor(Port.S1)
+# Sensores: Cor na S1, Infravermelho na S2
+sensor_cor = ColorSensor(Port.S1)
+sensor_ir = InfraredSensor(Port.S2)
 
 def mostrar_mensagem(texto):
     """Mostra mensagem no display e no terminal"""
@@ -27,13 +27,13 @@ def parar_motores():
     motor_esq.stop(Stop.BRAKE)
     motor_dir.stop(Stop.BRAKE)
 
-def andar_frente(velocidade=500):
+def andar_frente(velocidade=-500):
     """Move para frente continuamente até mudar ação"""
     mostrar_mensagem("[AÇÃO] Avançando")
     motor_esq.run(velocidade)
     motor_dir.run(velocidade)
 
-def recuar(velocidade=-500):
+def recuar(velocidade=500):
     """Move para trás continuamente até mudar ação"""
     mostrar_mensagem("[AÇÃO] Recuando")
     motor_esq.run(velocidade)
