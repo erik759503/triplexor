@@ -13,8 +13,8 @@ motor_esq = Motor(Port.A)
 motor_dir = Motor(Port.B)
 
 # Sensores: Cor na S1, Infravermelho na S2
-sensor_cor = ColorSensor(Port.S1)
-sensor_ir = InfraredSensor(Port.S2)
+sensor_cor = ColorSensor(Port.S4)
+sensor_ir = InfraredSensor(Port.S1)
 
 def mostrar_mensagem(texto):
     """Mostra mensagem no display e no terminal"""
@@ -39,13 +39,13 @@ def recuar(velocidade=500):
     motor_esq.run(velocidade)
     motor_dir.run(velocidade)
 
-def girar(vel_esq=-500, vel_dir=500):
+def girar(vel_esq=-900, vel_dir=900):
     """Gira no lugar continuamente até mudar ação"""
     mostrar_mensagem("[AÇÃO] Girando")
     motor_esq.run(vel_esq)
     motor_dir.run(vel_dir)
 
-def explorar(velocidade=500):
+def explorar(velocidade=-900):
     """Avança por tempo curto para explorar"""
     mostrar_mensagem("[AÇÃO] Explorando")
     motor_esq.run(velocidade)
@@ -54,6 +54,16 @@ def explorar(velocidade=500):
 def main():
     mostrar_mensagem("[INÍCIO] Robô pronto!")
     wait(2000)
+
+    # Aguarda o pressionamento de um botão para começar
+    mostrar_mensagem("Pressione p/ iniciar")
+    while not any(ev3.buttons.pressed()):
+        wait(10)
+
+    # Limpa a tela e começa o combate
+    ev3.screen.clear()
+    wait(500) # Pequena pausa antes de começar
+
 
     estado_atual = None
     relogio_acao = StopWatch()
