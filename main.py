@@ -9,8 +9,8 @@ from pybricks.tools import StopWatch, wait
 ev3 = EV3Brick()
 
 # Motores conectados nas portas A e B
-motor_esq = Motor(Port.A)
-motor_dir = Motor(Port.B)
+motor_esq = Motor(Port.B)
+motor_dir = Motor(Port.A)
 
 # Sensores: Cor na S1, Infravermelho na S2
 sensor_cor = ColorSensor(Port.S4)
