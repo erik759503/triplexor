@@ -27,7 +27,7 @@ def parar_motores():
     motor_esq.stop(Stop.BRAKE)
     motor_dir.stop(Stop.BRAKE)
 
-def andar_frente(velocidade=-500):
+def andar_frente(velocidade=-900):
     """Move para frente continuamente até mudar ação"""
     mostrar_mensagem("[AÇÃO] Avançando")
     motor_esq.run(velocidade)
@@ -39,7 +39,7 @@ def recuar(velocidade=500):
     motor_esq.run(velocidade)
     motor_dir.run(velocidade)
 
-def girar(vel_esq=-900, vel_dir=900):
+def girar(vel_esq=-2000, vel_dir=-200):
     """Gira no lugar continuamente até mudar ação"""
     mostrar_mensagem("[AÇÃO] Girando")
     motor_esq.run(vel_esq)
@@ -58,11 +58,11 @@ def main():
     # Aguarda o pressionamento de um botão para começar
     mostrar_mensagem("Pressione p/ iniciar")
     while not any(ev3.buttons.pressed()):
-        wait(10)
+        wait(100)
 
     # Limpa a tela e começa o combate
     ev3.screen.clear()
-    wait(500) # Pequena pausa antes de começar
+    wait(5000) # Pausa de 5 segundos antes de começar
 
 
     estado_atual = None
@@ -103,6 +103,7 @@ def main():
             # Detectou adversário próximo: avança continuamente
             elif distancia is not None and distancia < 30:
                 if estado_atual != "atacando":
+                    parar_motores()  # Garante parada antes de atacar 
                     andar_frente()
                     estado_atual = "atacando"
                     tempo_procurando.reset()
@@ -117,7 +118,6 @@ def main():
 
                 elif estado_atual == "procurando":
                     if tempo_procurando.time() >= 5000:
-                        explorar()
                         relogio_acao.reset()
                         duracao_acao_ms = 1000
                         estado_atual = "explorando"
